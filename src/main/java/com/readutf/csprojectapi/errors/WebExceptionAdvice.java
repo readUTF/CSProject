@@ -6,14 +6,16 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.util.HashMap;
+
 @ControllerAdvice
 public class WebExceptionAdvice {
 
     @ResponseBody
     @ExceptionHandler(WebException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String webException(WebException exception) {
-        return exception.getMessage();
+    HashMap<String, String> webException(WebException exception) {
+        return exception.getData();
     }
 
 }
