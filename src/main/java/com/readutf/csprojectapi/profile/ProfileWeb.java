@@ -1,20 +1,18 @@
 package com.readutf.csprojectapi.profile;
 
-import com.readutf.csprojectapi.authentication.AuthenticationRepository;
 import com.readutf.csprojectapi.errors.WebException;
-import com.readutf.csprojectapi.tokens.QuickMap;
+import com.readutf.csprojectapi.tokens.HashMapBuilder;
 import com.readutf.csprojectapi.tokens.Token;
 import com.readutf.csprojectapi.tokens.TokenRepository;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.function.Supplier;
 
 @RestController
 @AllArgsConstructor
@@ -37,7 +35,7 @@ public class ProfileWeb {
     }
 
     @PutMapping("/profile/username")
-    public QuickMap<String, String> updateUsername(String token, long profile, String username) {
+    public HashMap<String, String> updateUsername(String token, long profile, String username) {
         System.out.println(token);
         System.out.println(profile);
         System.out.println(username);
@@ -50,8 +48,8 @@ public class ProfileWeb {
 
         entity.setUsername(username);
         profileRepo.save(entity);
-        return new QuickMap<String, String>(
-                "response", "OK");
+        return new HashMapBuilder<String, String>().add(
+                "response", "OK").build();
     }
 
     public boolean isAuthed(String token, Profile profile) {
