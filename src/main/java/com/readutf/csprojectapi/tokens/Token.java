@@ -40,4 +40,7 @@ public class Token {
         this.generatedTime = generatedTime;
         this.ipAddress = ipAddress;
     }
+
+
+
 }

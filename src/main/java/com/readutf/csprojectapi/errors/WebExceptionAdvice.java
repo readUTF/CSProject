@@ -14,7 +14,7 @@ public class WebExceptionAdvice {
     @ResponseBody
     @ExceptionHandler(WebException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    HashMap<String, String> webException(WebException exception) {
+    HashMap<String, Object> webException(WebException exception) {
         return exception.getData();
     }
 

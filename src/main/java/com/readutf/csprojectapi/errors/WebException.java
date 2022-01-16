@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class WebException extends RuntimeException {
 
     String errorCode;
-    String invalidData;
+    Object invalidData;
 
     /**
      * This is an exception returned within rest api mappings and is used by spring to return information when invalid data
@@ -19,13 +19,13 @@ public class WebException extends RuntimeException {
      * @param errorCode   the error code relating to the exception
      * @param invalidData the data originally provided to the api
      */
-    public WebException(String errorCode, String invalidData) {
+    public WebException(String errorCode, Object invalidData) {
         super(errorCode + ":" + invalidData);
         this.errorCode = errorCode;
         this.invalidData = invalidData;
     }
 
-    public HashMap<String, String> getData() {
+    public HashMap<String, Object> getData() {
         return new HashMap<>() {{put("error_code", errorCode); put("invalid_data", invalidData);}};
     }
 }

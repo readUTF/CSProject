@@ -7,7 +7,4 @@ import org.springframework.web.bind.annotation.RestController;
 
 public interface AuthenticationRepository extends JpaRepository<Authentication, Long> {
 
-
-
-
 }
