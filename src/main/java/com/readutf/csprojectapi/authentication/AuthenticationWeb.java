@@ -51,7 +51,11 @@ public class AuthenticationWeb {
         Authentication auth = authRepo.save(new Authentication(email, ProjectAPI.getPasswordHashing().generateHash(password)));
         Profile profile = profileRepo.save(new Profile(auth.getId(), faker.superhero().prefix() + faker.name().firstName() + faker.address().buildingNumber(), LocalDateTime.now(), 0, 0));
         Token token = tokenRepo.save(new Token(auth.getId(), UUID.randomUUID(), LocalDateTime.now(), ""));
-        return new HashMapBuilder<String, Object>().add("token", token.getToken().toString()).add("profile_id", profile.getId()).build();
+        return new HashMapBuilder<String, Object>()
+                .add("token", token.getToken().toString())
+                .add("profile_id", profile.getId())
+                .add("token_expiry", token.getGeneratedTime().plusDays(30))
+                .build();
     }
 
     /**
@@ -77,7 +81,11 @@ public class AuthenticationWeb {
         }
         Token token = tokenRepo.save(new Token(authentication.getId(), UUID.randomUUID(), LocalDateTime.now(), ""));
         Profile profile = profileRepo.getProfileByAuthId(authentication.getId());
-        return new HashMapBuilder<String, Object>().add("token", token.getToken()).add("profile_id", profile.getId()).build();
+        return new HashMapBuilder<String, Object>()
+                .add("token", token.getToken())
+                .add("profile_id", profile.getId())
+                .add("token_expiry", token.getGeneratedTime().plusDays(30))
+                .build();
     }
 
     /**

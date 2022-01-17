@@ -7,26 +7,37 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
+import java.util.List;
 
-@Entity @Getter @Setter @NoArgsConstructor @JsonSerialize
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@JsonSerialize
 public class Profile {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
+
     private Long authId;
     private String username;
-    LocalDateTime localDateTime;
+    LocalDateTime lastUsernameChange;
     int completedCards;
     long revisionTime;
 
-    public Profile(Long authId, String username, LocalDateTime localDateTime, int completedCards, long revisionTime) {
+    @ElementCollection
+    List<Long> savedRevisionCards;
+
+    public Profile(Long authId, String username, LocalDateTime lastUsernameChange, int completedCards, long revisionTime) {
         this.authId = authId;
         this.username = username;
-        this.localDateTime = localDateTime;
+        this.lastUsernameChange = lastUsernameChange;
         this.completedCards = completedCards;
         this.revisionTime = revisionTime;
     }

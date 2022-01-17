@@ -22,20 +22,18 @@ public class ProfileWeb {
     ProfileRepository profileRepo;
 
     @GetMapping("/profile") @SneakyThrows
-    public Profile getProfile(String token, long profile) {
+    public Profile getProfile(String token) {
 
-        System.out.println(profile);
 
         Optional<Profile> byId = Optional.ofNullable(profileRepo.getById(profile));
         byId.orElseThrow(() -> new WebException("no_profile", token));
 
-        if(!isAuthed(token, byId.get())) return null;
-
+        handleTokenAuth(token, byId.get());
         return byId.get();
     }
 
     @PutMapping("/profile/username")
-    public HashMap<String, String> updateUsername(String token, long profile, String username) {
+    public HashMap<String, String> updateUsername(String token, String username) {
         System.out.println(token);
         System.out.println(profile);
         System.out.println(username);
@@ -44,7 +42,7 @@ public class ProfileWeb {
         Optional<Profile> byId = Optional.ofNullable(profileRepo.getById(profile));
         byId.orElseThrow(() -> new WebException("no_profile", token));
         Profile entity = byId.get();
-        if(!isAuthed(token, entity)) return null;
+        handleTokenAuth(token, entity);
 
         entity.setUsername(username);
         profileRepo.save(entity);
@@ -52,7 +50,10 @@ public class ProfileWeb {
                 "response", "OK").build();
     }
 
-    public boolean isAuthed(String token, Profile profile) {
+    @PutMapping("/profile/createSet")
+    public String
+
+    public void handleTokenAuth(String token, Profile profile) throws WebException {
         UUID uToken;
 
         try {
@@ -63,7 +64,9 @@ public class ProfileWeb {
         if(token1.get().getAuthId() != profile.getAuthId()) {
             throw new WebException("no_auth", token);
         }
-        return true;
+        if(token1.get().isExpired()) {
+            throw new WebException("token_expired", token);
+        }
     }
 
 }

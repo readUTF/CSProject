@@ -1,5 +1,7 @@
 package com.readutf.csprojectapi.tokens;
 
+import com.readutf.csprojectapi.authentication.AuthenticationRepository;
+import com.readutf.csprojectapi.profile.Profile;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +10,7 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -41,6 +44,12 @@ public class Token {
         this.ipAddress = ipAddress;
     }
 
+    public boolean isExpired() {
+        return Duration.between(LocalDateTime.now(), generatedTime).toDays() > 30;
+    }
 
+    public Profile getProfile(AuthenticationRepository authRepo) {
+        authRepo.getById(authId).get
+    }
 
 }
