@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -46,4 +47,7 @@ public class Profile {
         return authenticationRepository.getById(authId);
     }
 
+    public List<Long> getSavedRevisionCards() {
+        return savedRevisionCards == null ? savedRevisionCards = new ArrayList<>() : savedRevisionCards;
+    }
 }

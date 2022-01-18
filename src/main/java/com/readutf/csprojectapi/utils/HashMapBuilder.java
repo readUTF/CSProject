@@ -1,4 +1,4 @@
-package com.readutf.csprojectapi.tokens;
+package com.readutf.csprojectapi.utils;
 
 import java.util.HashMap;
 

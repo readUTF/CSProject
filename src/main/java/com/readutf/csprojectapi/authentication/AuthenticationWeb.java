@@ -6,7 +6,7 @@ import com.readutf.csprojectapi.ProjectAPI;
 import com.readutf.csprojectapi.errors.WebException;
 import com.readutf.csprojectapi.profile.Profile;
 import com.readutf.csprojectapi.profile.ProfileRepository;
-import com.readutf.csprojectapi.tokens.HashMapBuilder;
+import com.readutf.csprojectapi.utils.HashMapBuilder;
 import com.readutf.csprojectapi.tokens.Token;
 import com.readutf.csprojectapi.tokens.TokenRepository;
 import lombok.AllArgsConstructor;
