@@ -48,8 +48,4 @@ public class Token {
         return Duration.between(LocalDateTime.now(), generatedTime).toDays() > 30;
     }
 
-    public Profile getProfile(AuthenticationRepository authRepo) {
-        authRepo.getById(authId).get
-    }
-
 }

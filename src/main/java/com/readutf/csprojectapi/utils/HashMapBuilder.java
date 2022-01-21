@@ -10,6 +10,13 @@ public class HashMapBuilder<T, E> {
         map = new HashMap<>();
     }
 
+    public HashMapBuilder(T key, E value) {
+        map = new HashMap<>();
+        map.put(key, value);
+    }
+
+
+
     public HashMapBuilder<T,E> add(T key, E value) {
         map.put(key, value);
         return this;
